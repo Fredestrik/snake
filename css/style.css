@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    background-color: indianred;
+}
+
+body p {
+    text-align: center;
+    text-decoration: underline rgb(67, 82, 95);
+    text-transform: capitalize;
+    text-shadow: 2px;
+    font-weight: 500;
+    margin-bottom: 10%;
+}
+
+body canvas {
+    margin:auto;
+    padding: 0;
+    display: block;
+}
