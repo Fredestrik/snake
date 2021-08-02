@@ -17,6 +17,7 @@ class Snake {
         this.speed = BLOCK_SIZE;
         this.length = 4;
         this.tail = [];
+        this.dir_lock = false;
     }
 
     draw() {
@@ -26,14 +27,23 @@ class Snake {
         this.tail.forEach(square =>
             rect(square.x, square.y, BLOCK_SIZE, BLOCK_SIZE)
         )
+        this.dir_lock = false;
     }
 
     move() {
         if(this.tail.length <= this.length) this.tail.push({x:this.x, y:this.y})
         if(this.tail.length > this.length) this.tail.shift();
 
-        this.x += this.dirX * this.speed;
-        this.y += this.dirY * this.speed;
+        if(this.collide(this.x + this.dirX * this.speed, this.y + this.dirY * this.speed)) {
+            this.speed = 0;
+            this.color = 120;
+            game_over = true
+            return;
+        }
+        else {
+            this.x += this.dirX * this.speed;
+            this.y += this.dirY * this.speed;
+        }
 
         if (this.x >= WIDTH) this.x = 0;
         else if (this.x < 0) this.x = WIDTH;
@@ -43,14 +53,11 @@ class Snake {
 
         //console.log(this.x, this.y, this.collide(this.x, this.y))
 
-        if(this.collide(this.x, this.y)) {
-            this.speed = 0;
-            this.color = 120;
-            game_over = true
-        }
+        
     }
 
     turn(dir) {
+        if(this.dir_lock) return;
         switch (dir) {
             case "up":
                 if (this.dir == "down") return;
@@ -74,6 +81,7 @@ class Snake {
                 break;
         }
         this.dir=dir;
+        this.dir_lock = true;
     }
 
     collide(x, y) {
