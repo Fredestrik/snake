@@ -3,13 +3,31 @@ body {
     background-color: indianred;
 }
 
-body p {
+body h1 {
     text-align: center;
-    text-decoration: underline rgb(67, 82, 95);
     text-transform: capitalize;
     text-shadow: 2px;
-    font-weight: 500;
-    margin-bottom: 10%;
+    font-weight: 600;
+    font-family: sans-serif;
+    font-size: large;
+    border-radius: 10px;
+    background-color: aliceblue;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 5px;
+    width: 130px;
+    color: indianred;
+
+}
+
+body p {
+    font-family: sans-serif;
+    color: rgb(213, 219, 210);
+    margin: auto;
+    margin-bottom: 40px;
+    width: fit-content;
+    max-width: 360px;
 }
 
 body canvas {
