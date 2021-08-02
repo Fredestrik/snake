@@ -4,22 +4,23 @@ const BLOCK_SIZE = 10;
 
 let snake = null;
 let freeFruit = null;
+let game_over = false
 
 class Snake {
-    constructor({ x = 0, y = 0, dirX = 1, dirY = 0, color = "yellow" } = {}) {
+    constructor({ x = 0, y = 0, dir = "right", color = 255 } = {}) {
         this.x = x;
         this.y = y;
-        this.dirX = dirX;
-        this.dirY = dirY;
+        this.dir = dir;
+        this.turn(this.dir)
         this.color = color;
 
         this.speed = BLOCK_SIZE;
-        this.length = 2;
+        this.length = 4;
         this.tail = [];
     }
 
     draw() {
-        fill(255);
+        fill(this.color);
         rect(this.x, this.y, BLOCK_SIZE, BLOCK_SIZE);
         //console.log(this.tail)
         this.tail.forEach(square =>
@@ -39,9 +40,17 @@ class Snake {
 
         if (this.y >= HEIGHT) this.y = 0;
         else if (this.y < 0) this.y = HEIGHT;
+
+        //console.log(this.x, this.y, this.collide(this.x, this.y))
+
+        if(this.collide(this.x, this.y)) {
+            this.speed = 0;
+            this.color = 120;
+            game_over = true
+        }
     }
 
-    dir(dir) {
+    turn(dir) {
         switch (dir) {
             case "up":
                 if (this.dir == "down") return;
@@ -64,14 +73,26 @@ class Snake {
                 this.dirY = 0;
                 break;
         }
+        this.dir=dir;
+    }
+
+    collide(x, y) {
+        let r = false
+        this.tail.forEach(square =>
+            { if (square.x == x && square.y == y) r=true; }
+        )
+        return r;
     }
 }
 
 class Fruit {
     constructor({x=100, y=100, color="red"} = {}) {
-        this.x = Math.round(random(0,40))*10;
-        this.y = Math.round(random(0,30))*10;
+        do {
+        this.x = Math.round(random(0,39))*10;
+        this.y = Math.round(random(0,29))*10;
+        } while (snake.collide(this.x, this.y));
         this.color = color;
+        console.log(`Fruit created at ${this.x}, ${this.y}`)
     }
 
     draw() {
@@ -100,22 +121,22 @@ function draw() {
         freeFruit = new Fruit();
     }
 
-    snake.move();
+    if (!game_over) snake.move();
 }
 
 function keyPressed() {
     switch (keyCode) {
         case UP_ARROW:
-            snake.dir("up");
+            snake.turn("up");
             break;
         case DOWN_ARROW:
-            snake.dir("down");
+            snake.turn("down");
             break;
         case LEFT_ARROW:
-            snake.dir("left");
+            snake.turn("left");
             break;
         case RIGHT_ARROW:
-            snake.dir("right");
+            snake.turn("right");
             break;
     }
 }
