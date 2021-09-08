@@ -25,13 +25,23 @@ body p {
     font-family: sans-serif;
     color: rgb(28, 73, 5);
     margin: auto;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
     width: fit-content;
     max-width: 360px;
 }
 
-body canvas {
+body p#score {
+    border: 1px solid rgb(28, 73, 5);;
+    padding: 4px;
+}
+
+body #sketch-holder {
     margin:auto;
     padding: 0;
     display: block;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

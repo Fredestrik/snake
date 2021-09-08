@@ -1,52 +1,54 @@
 import { Color } from "./color.js";
-import { Snake } from "./snake.js";
 import { Fruit } from "./fruit.js";
 import { WIDTH, HEIGHT} from "./utils.js"
+import { state } from "./gameState.js"
 
-window.snake = null;
-window.freeFruit = null;
-window.game_over = false
 
+
+let score = null;
 
 window.setup = function () {
-    createCanvas(WIDTH, HEIGHT);
+    var canvas = createCanvas(WIDTH, HEIGHT);
+    canvas.parent("sketch-holder");
     frameRate(5);
-    console.log("setup")
+    state.setup();
 
-    window.snake = new Snake();
-    window.freeFruit = new Fruit();
+    score = select("#score");
+    console.log("setup");
 
 }
 
 window.draw = function () {
-    background(0);
+    background(...Color.fromColor("black").get());
 
-    window.freeFruit.draw();
-    window.snake.draw();
+    state.freeFruit.draw();
+    state.snake.draw();
 
-    if(window.freeFruit.x == window.snake.x && window.freeFruit.y == window.snake.y) {
-        window.snake.length+=1;
-        window.freeFruit = new Fruit();
+    if(state.freeFruit.x == state.snake.x && state.freeFruit.y == state.snake.y) {
+        state.snake.length+=1;
+        state.freeFruit = new Fruit();
+        score.html(`Score : ${state.snake.length - 1}`);
     }
 
-    if (!window.game_over) window.snake.move();
+    if (!state.game_over) state.snake.move();
 }
 
 window.keyPressed = function () {
     switch (keyCode) {
         case UP_ARROW:
-            window.snake.turn("up");
+            state.snake.turn("up");
             break;
         case DOWN_ARROW:
-            window.snake.turn("down");
+            state.snake.turn("down");
             break;
         case LEFT_ARROW:
-            window.snake.turn("left");
+            state.snake.turn("left");
             break;
         case RIGHT_ARROW:
-            window.snake.turn("right");
+            state.snake.turn("right");
             break;
     }
 }
+
 
 console.log("hello le snake");

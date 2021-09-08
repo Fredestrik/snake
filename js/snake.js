@@ -1,13 +1,14 @@
 import { Color } from "./color.js";
 import { BLOCK_SIZE, WIDTH, HEIGHT } from "./utils.js";
+import { state } from "./gameState.js"
 
 export class Snake {
-  constructor({ x = 0, y = 0, dir = "right", color = 255 } = {}) {
+  constructor({ x = 0, y = 0, dir = "right" } = {}) {
       this.x = x;
       this.y = y;
       this.dir = dir;
       this.turn(this.dir)
-      this.color = new Color(100);
+      this.color = Color.fromNumber(100);
 
       this.speed = BLOCK_SIZE;
       this.length = 4;
@@ -31,8 +32,8 @@ export class Snake {
 
       if(this.collide(this.x + this.dirX * this.speed, this.y + this.dirY * this.speed)) {
           this.speed = 0;
-          this.color = 120;
-          game_over = true
+          this.color = Color.fromNumber(160);
+          state.game_over = true
           return;
       }
       else {
