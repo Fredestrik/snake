@@ -6,6 +6,7 @@ import { state } from "./gameState.js"
 
 
 let score = null;
+let img;
 
 window.setup = function () {
     var canvas = createCanvas(WIDTH, HEIGHT);
@@ -14,6 +15,8 @@ window.setup = function () {
     state.setup();
 
     score = select("#score");
+
+    img = loadImage('game-over.jpg');
     console.log("setup");
 
 }
@@ -27,10 +30,11 @@ window.draw = function () {
     if(state.freeFruit.x == state.snake.x && state.freeFruit.y == state.snake.y) {
         state.snake.length+=1;
         state.freeFruit = new Fruit();
-        score.html(`Score : ${state.snake.length - 1}`);
+        score.html(`Score : ${state.snake.length > 4 ? state.snake.length - 1 : '⌀'}`);
     }
 
     if (!state.game_over) state.snake.move();
+    else image(img, 125,50,150,150);
 }
 
 window.keyPressed = function () {
@@ -46,6 +50,9 @@ window.keyPressed = function () {
             break;
         case RIGHT_ARROW:
             state.snake.turn("right");
+            break;
+        case ESCAPE:
+            state.setup(); score.html(`Score : ⌀`);
             break;
     }
 }
