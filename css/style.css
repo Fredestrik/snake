@@ -45,3 +45,21 @@ body #sketch-holder {
     justify-content: center;
     align-items: center;
 }
+
+body div#arrow-container {
+    padding: 4px;
+    display:flex;
+    justify-content:center;
+    align:center;
+    items:center;
+    gap:3px;
+}
+
+body div div.arrow {
+    border: 1px solid rgb(28, 73, 5);;
+    padding: 4px;
+    cursor:pointer;
+    
+}
+
+

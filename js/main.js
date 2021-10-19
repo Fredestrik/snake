@@ -57,5 +57,14 @@ window.keyPressed = function () {
     }
 }
 
+let uparrow = document.getElementById("up");
+let leftarrow = document.getElementById("left");
+let rightarrow = document.getElementById("right");
+let downarrown = document.getElementById("down");
+
+uparrow.onclick = () => { state.snake.turn("up")};
+leftarrow.onclick= () => { state.snake.turn("left")};
+rightarrow.onclick = () => { state.snake.turn("right")};
+downarrown.onclick = () => { state.snake.turn("down")};
 
 console.log("hello le snake");
