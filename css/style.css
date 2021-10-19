@@ -52,12 +52,12 @@ body div#arrow-container {
     justify-content:center;
     align:center;
     items:center;
-    gap:3px;
+    gap:8px;
 }
 
 body div div.arrow {
     border: 1px solid rgb(28, 73, 5);;
-    padding: 4px;
+    padding: 6px;
     cursor:pointer;
     
 }
