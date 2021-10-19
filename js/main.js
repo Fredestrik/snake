@@ -67,4 +67,4 @@ leftarrow.onclick= () => { state.snake.turn("left")};
 rightarrow.onclick = () => { state.snake.turn("right")};
 downarrown.onclick = () => { state.snake.turn("down")};
 
-console.log("hello le snake");
+//console.log("hello le snake");
